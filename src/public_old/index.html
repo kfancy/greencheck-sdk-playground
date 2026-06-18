@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>GreenCheck SDK minimum POC</title>
+        <style type="text/css">
+            body {
+                font-family: open-sans, sans-serif;
+                font-size: 1em;
+            }
+            .outputInfo {
+                margin-top: 2em;
+                border: 1px solid #000;
+                background-color: #444;
+                color: #bbff69;
+                padding: 8px;
+                border-radius: 8px;
+                font-size: 1em;
+                min-width: 540px;
+                width: 96vw;
+                min-height: 420px;
+                height: fit-content;
+            }
+            button {
+                font-size: 1.5em;
+            }
+            input {
+                font-size: 1.5em;
+                border: 1px solid #777;
+                padding: 8px;
+            }
+            #progress {
+                font-size: 1.5em;
+                margin-bottom: 16px;
+                padding: 8px;
+                border-bottom: 1px solid #aaa;
+                color: #53a2d7;
+                max-width: 100vw;
+            }
+            @media (max-width: 1200px) and (orientation: portrait) {
+                /* portrait phone only */
+                input {
+                    font-size: 3em;
+                    margin-bottom: 1em;
+                }
+                button {
+                    font-size: 2.5em;
+                    padding: 8px;
+                }
+                .outputInfo {
+                    width: 96vw;
+                    font-size: 3em;
+                }
+                #progress {
+                    font-size: 2.5em;
+                    margin-bottom: 32px;
+                    padding: 16px;
+                    border-bottom: 1px solid #aaa;
+                    color: #53a2d7;
+                    max-width: 100vw;
+                }
+                p {
+                    font-size: 2em;
+                }
+                h1 {
+                    font-size: 5em;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h1>GreenCheck SDK minimum POC</h1>
+        <p>
+            This demonstrates running the GC SDK from a third-party domain to
+            show CORS, SDK handshake with server (protected by origin), and
+            basic GC interactions over the secure connection.
+        </p>
+
+        <div id="full-demo-app">
+            <pre id="progress"></pre>
+            <div id="start-container" class="demo-step">
+                <div>
+                    <button id="start-btn">Start SDK Handshake</button>
+                </div>
+                <form>
+                    <textarea
+                        class="error-response outputInfo"
+                        autocomplete="off"
+                    ></textarea>
+                </form>
+            </div>
+            <div id="choose-platform">
+                <div style="display: flex; gap: 1em; margin-top: 1em">
+                    <button class="claim-phone">Claim Phone</button>
+                    <button class="claim-email">Claim Email</button>
+                    <button class="start-over">Start over</button>
+                </div>
+            </div>
+            <div id="phone-container" style="display: none" class="demo-step">
+                <p>Input your mobile phone number:</p>
+                <div>
+                    <form>
+                        <input
+                            name="phone"
+                            autocomplete="off"
+                            placeholder="phone for verification"
+                        />
+                    </form>
+                </div>
+                <div style="display: flex; gap: 1em; margin-top: 1em">
+                    <button class="send-2fa">
+                        Send 2FA Code to your phone
+                    </button>
+                    <button class="continue" style="display: none">
+                        Continue to 2FA entry
+                    </button>
+                    <button class="start-over">Start over</button>
+                </div>
+                <form>
+                    <textarea
+                        class="error-response outputInfo"
+                        autocomplete="off"
+                    ></textarea>
+                </form>
+            </div>
+            <div
+                id="validate-phone-2fa-container"
+                style="display: none"
+                class="demo-step"
+            >
+                <p>
+                    Enter the code you received in SMS to verify your phone
+                    ownership:
+                </p>
+                <div>
+                    <form>
+                        <input
+                            name="phone_2fa"
+                            autocomplete="off"
+                            placeholder="2FA received in SMS"
+                        />
+                    </form>
+                </div>
+                <div style="display: flex; gap: 1em; margin-top: 1em">
+                    <button class="validate-2fa">Validate 2FA Code</button>
+                    <button class="start-over">Start over</button>
+                </div>
+                <form>
+                    <textarea
+                        class="error-response outputInfo"
+                        autocomplete="off"
+                    ></textarea>
+                </form>
+            </div>
+
+            <div id="email-container" style="display: none" class="demo-step">
+                <p>Input your mobile email:</p>
+                <div>
+                    <form>
+                        <input
+                            name="email"
+                            autocomplete="off"
+                            placeholder="email for verification"
+                        />
+                    </form>
+                </div>
+                <div style="display: flex; gap: 1em; margin-top: 1em">
+                    <button class="send-2fa">
+                        Send 2FA Code to your email
+                    </button>
+                    <button class="continue" style="display: none">
+                        Continue to 2FA entry
+                    </button>
+                    <button class="start-over">Start over</button>
+                </div>
+                <form>
+                    <textarea
+                        class="error-response outputInfo"
+                        autocomplete="off"
+                    ></textarea>
+                </form>
+            </div>
+            <div
+                id="validate-email-2fa-container"
+                style="display: none"
+                class="demo-step"
+            >
+                <p>
+                    Enter the code you received in SMS to verify your email
+                    ownership:
+                </p>
+                <div>
+                    <form>
+                        <input
+                            name="email_2fa"
+                            autocomplete="off"
+                            placeholder="2FA received in email"
+                        />
+                    </form>
+                </div>
+                <div style="display: flex; gap: 1em; margin-top: 1em">
+                    <button class="validate-2fa">Validate 2FA Code</button>
+                    <button class="start-over">Start over</button>
+                </div>
+                <form>
+                    <textarea
+                        class="error-response outputInfo"
+                        autocomplete="off"
+                    ></textarea>
+                </form>
+            </div>
+
+            <div id="app-auth-state"></div>
+        </div>
+
+        <!-- Local vanilla JS -->
+        <script type="module" src="/app.js"></script>
+    </body>
+</html>

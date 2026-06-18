@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "esnext", // Modern JS
+    "module": "esnext", // ESM modules
+    "moduleResolution": "node",
+    "strict": true, // Strong type checking
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+
+    // React 18 automatic JSX transform
+    "jsx": "react-jsx",
+
+    // Allow using @/ to refer to frontend folder
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["frontend/*"]
+    },
+
+    // Output dirs are configured separately in build tools
+    "sourceMap": true
+  },
+
+  // Include both backend and frontend code
+  "include": ["src", "frontend", "vite-env.d.ts"],
+
+  // Exclude built files and node_modules
+  "exclude": ["node_modules", "dist"]
+}
